@@ -2,13 +2,13 @@ const express = require('express');
 const db = require('./src/config/db');
 
 const app = express();
-const PORT = 3000;
+const PORT = 3002;
 
 // Middleware to parse JSON (if you want to handle POST requests)
 app.use(express.json());
 
 // Test route to check DB connection
-app.get('/', (req, res) => {
+app.get('/', (res) => {
   db.query('SELECT 1 + 1 AS solution', (err, results) => {
     if (err) {
       console.error(err);
