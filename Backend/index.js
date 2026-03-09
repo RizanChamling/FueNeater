@@ -4,8 +4,14 @@ const db = require('./src/config/db');
 const app = express();
 const PORT = 3002;
 
-// Middleware to parse JSON (if you want to handle POST requests)
+// Middleware to parse JSON
 app.use(express.json());
+
+// Import routes
+const authRoutes = require('./src/routes/authRoutes');
+
+// Use routes
+app.use('/api/auth', authRoutes);
 
 // Test route to check DB connection
 app.get('/', (res) => {
