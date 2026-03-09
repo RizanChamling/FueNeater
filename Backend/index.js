@@ -11,11 +11,13 @@ app.use(express.json());
 const authRoutes = require('./src/routes/authRoutes');
 const productRoutes = require('./src/routes/productRoutes');
 const orderRoutes = require('./src/routes/orderRoutes');
+const adminRoutes = require('./src/routes/adminRoutes');
 
 // Use routes
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Test route to check DB connection
 app.get('/', (res) => {
