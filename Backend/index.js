@@ -9,9 +9,11 @@ app.use(express.json());
 
 // Import routes
 const authRoutes = require('./src/routes/authRoutes');
+const productRoutes = require('./src/routes/productRoutes');
 
 // Use routes
 app.use('/api/auth', authRoutes);
+app.use('/api/products', productRoutes);
 
 // Test route to check DB connection
 app.get('/', (res) => {
