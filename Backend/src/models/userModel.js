@@ -2,9 +2,9 @@ const db = require('../config/db');
 
 const User = {
   createUser: (userData, callback) => {
-    const { username, email, password_hash } = userData;
-    const query = 'INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)';
-    db.query(query, [username, email, password_hash], (err, results) => {
+    const { username, email, password_hash, role = 'user' } = userData;
+    const query = 'INSERT INTO users (username, email, password_hash, role) VALUES (?, ?, ?, ?)';
+    db.query(query, [username, email, password_hash, role], (err, results) => {
       callback(err, results);
     });
   },

@@ -1,11 +1,13 @@
 const Order = require('../models/orderModel');
+const User = require('../models/userModel');
+const emailService = require('./emailService');
 
 const orderService = {
   processCheckout: (userId, orderData, callback) => {
     const { items, total_amount } = orderData;
 
     // 1. Create the main order record
-    Order.createOrder({ user_id: userId, total_amount, status: 'pending' }, (err, result) => {
+    Order.createOrder({ user_id: userId, total_amount, status: orderData.status || 'pending' }, (err, result) => {
       if (err) return callback(err);
       
       const orderId = result.insertId;
@@ -30,6 +32,21 @@ const orderService = {
 
           if (itemsProcessed === items.length) {
             if (errors.length > 0) return callback(errors[0]); // Return first error
+            
+            // 3. Send order confirmation email (asynchronously)
+            User.findUserById(userId, (err, user) => {
+              if (user && user.email) {
+                // Prepare order details for email
+                // We need to fetch product names if they are not in the payload
+                // For now, let's assume items in orderData might have names or we use a generic label
+                emailService.sendOrderConfirmation(user.email, {
+                  orderId,
+                  total_amount,
+                  items: items
+                });
+              }
+            });
+
             callback(null, { orderId, message: 'Order placed successfully' });
           }
         });

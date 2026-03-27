@@ -66,5 +66,15 @@ CREATE TABLE IF NOT EXISTS order_items (
     FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE SET NULL
 );
 
--- 7. Seed Categories (Optional but helpful)
-INSERT IGNORE INTO categories (name) VALUES ('Sofa'), ('Chair'), ('Table'), ('Bed'), ('Wardrobe');
+-- 7. Seed Categories
+INSERT IGNORE INTO categories (name) VALUES ('Sofas'), ('Chairs'), ('Tables'), ('Storage'), ('Lighting'), ('Desks');
+
+-- 8. Seed Products (Readymade and Custom Base Models)
+INSERT IGNORE INTO products (id, name, description, base_price, category_id, image_url, stock) VALUES 
+(1, 'Velvet Cloud Sofa', 'Readymade luxury sofa', 1290.00, 1, 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc', 14),
+(2, 'Minimalist Dining Set', 'Readymade dining room centerpiece', 849.00, 3, 'https://images.unsplash.com/photo-1604578762246-41134e37f9cc', 8),
+(3, 'Oak Reading Chair', 'Readymade comfortable reading chair', 320.00, 2, 'https://images.unsplash.com/photo-1592078615290-033ee584e267', 22),
+(4, 'Archway Bookshelf', 'Readymade architectural storage', 450.00, 4, 'https://images.unsplash.com/photo-1594620302200-9a762244a156', 5),
+(5, 'Lumiere Floor Lamp', 'Readymade ambient lighting', 180.00, 5, 'https://images.unsplash.com/photo-1513506003901-1e6a229e2d15', 30),
+(6, 'Walnut Coffee Table', 'Readymade center table', 290.00, 3, 'https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc', 2),
+(100, 'Custom Minimalist Desk', 'Fully customizable base frame', 450.00, 6, '', 999);

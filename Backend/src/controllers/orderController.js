@@ -1,6 +1,18 @@
 const orderService = require('../services/orderService');
+const crypto = require('crypto');
 
 const orderController = {
+  generateSignature: (req, res) => {
+    const { total_amount, transaction_uuid, product_code } = req.body;
+    if (!total_amount || !transaction_uuid || !product_code) {
+      return res.status(400).json({ message: 'Missing fields for signature generation' });
+    }
+    const secretKey = '8gBm/:&EnhH.1/q'; 
+    const message = `total_amount=${total_amount},transaction_uuid=${transaction_uuid},product_code=${product_code}`;
+    const hash = crypto.createHmac('sha256', secretKey).update(message).digest('base64');
+    res.status(200).json({ signature: hash });
+  },
+
   checkout: (req, res) => {
     const userId = req.user.id; // From authMiddleware
     const orderData = req.body;

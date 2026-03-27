@@ -20,7 +20,7 @@ app.use('/api/orders', orderRoutes);
 app.use('/api/admin', adminRoutes);
 
 // Test route to check DB connection
-app.get('/', (res) => {
+app.get('/', (req, res) => {
   db.query('SELECT 1 + 1 AS solution', (err, results) => {
     if (err) {
       console.error(err);
